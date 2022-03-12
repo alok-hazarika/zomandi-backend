@@ -1,5 +1,22 @@
+# node_modules/
+# build
+# npm-debug.log
+# .env
+# .DS_Store
+
+# Dependency directories
 node_modules/
-build
-npm-debug.log
+
+# Optional npm cache directory
+.npm
+
+# dotenv environment variables file
 .env
+
+# npm-debug log
+npm-debug.log
+
+# build
+build
+
 .DS_Store
