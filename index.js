@@ -1,21 +1,42 @@
 const express = require("express");
 const app = express();
 
-const mongoose = require("mongoose");
-const {MONGO_DB_CONFIG} = require("./config/config");
+// const mongoose = require("mongoose");
+// const {MONGO_DB_CONFIG} = require("./config/config");
 
 
 // const errors = require("./middlewares/errors.js");
 
 // const swaggerUi = require("swagger-ui-express"), swaggerDocument = require("./swagger.json");
 
-mongoose.connect('mongodb://localhost/zomandidata');
-mongoose.Promise = global.Promise;
 
+// const username = "alok-zomandi";
+// const password = "lbpE2fnh0ZjevT5J";
+// const cluster = "ClusterDemoZomandi0";
+// const dbname = "zomandi-demo";
+
+const cors = require("cors");
+require("dotenv").config({ path: "./config/config.env" });
+const port = process.env.PORT || 5000;
+
+app.use(cors());
 app.use(express.json());
 
-app.get('/api', (req, res) => res.send('API working!!'));
+// app.get('/api', (req, res) => res.send('API working!!'));
 
-app.listen(process.env.port || 4000, function(){
-    console.log(`now listening to port  ${process.env.port}`);
-})
+// app.listen(port, function(){
+//     console.log('now listening to port ' + 40006576);
+// })
+
+app.use(require("./routes/record"));
+// get driver connection
+const dbo = require("./db/conn");
+ 
+app.listen(port, () => {
+  // perform a database connection when server starts
+  dbo.connectToServer(function (err) {
+    if (err) console.error(err);
+ 
+  });
+  console.log(`Server is running on port: ${port}`);
+});
