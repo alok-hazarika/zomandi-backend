@@ -22,7 +22,16 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-// app.get('/api', (req, res) => res.send('API working!!'));
+app.get('/clients', (req, res) => {
+    let db_connect = dbo.getDb("zomandi-demo");
+  db_connect
+    .collection("clients")
+    .find({})
+    .toArray(function (err, result) {
+      if (err) throw err;
+      res.json(result);
+    });
+});
 
 // app.listen(port, function(){
 //     console.log('now listening to port ' + 40006576);
